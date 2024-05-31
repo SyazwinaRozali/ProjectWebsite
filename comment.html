@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Comment</title>
+    <style>
+        body 
+		{
+		background: url(image_folder/bulan.jpg) no-repeat center center fixed;
+    background-size: cover;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f3f4f6;
+            margin: 0;
+        }
+        .comment-container {
+            background-color: #fff;
+            padding: 20px;
+			align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            border: 1px solid #ffcccc;
+        }
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .comment-header img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+        .comment-header h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .rating {
+ display: flex;
+        margin-top: -10px;
+    flex-direction: row-reverse;
+    margin-left: -4px;
+        float: left;
+}
+
+.rating>input {
+    display: none
+}
+
+.rating>label {
+        position: relative;
+    width: 19px;
+    font-size: 25px;
+    color: #ff0000;
+    cursor: pointer;
+}
+
+.rating>label::before {
+    content: "\2605";
+    position: absolute;
+    opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+    opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+    opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+    opacity: 0.4
+}
+        .comment-textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .cancel-btn {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .send-btn {
+            background-color: #dc3545;
+            color: #fff;
+        }
+		
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 10px;
+}
+
+header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+	<div class="login-page">
+        <header>
+         
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="myself.html">About Me</a></li>
+                    <li><a href="image.html">My Gallery</a></li>
+                    <li><a href="interest.html">My Passion</a></li>
+                    <li><a href="education.html">My Education</a></li>
+					<li><a href="BMI_calculator.html">BMI Calculator</a></li>
+					<li><a href="comment.html">comment</a></li>
+                </ul>
+            </nav>
+        </header>
+    <div class="comment-container">
+        <div class="comment-header">
+            <img src="C:\xampp\htdocs\dashboard\PROJEK_SYAZ\image_folder\myPicture.png" alt="Profile Picture">
+            <h2>Add a comment</h2>
+        </div>
+        <div class="rating"> 
+                              <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+                              <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> 
+                              <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+                              <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+                              <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+                          </div>
+        <textarea class="comment-textarea" placeholder="What is your view?" id="comment"></textarea>
+        <div class="button-group">
+            <button class="cancel-btn" onclick="cancelComment()">Cancel</button>
+            <button class="send-btn" onclick="sendComment()">Send</button>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+    const stars = document.querySelectorAll('.stars i');
+    let selectedRating = 0;
+
+    stars.forEach(star => {
+        star.addEventListener('click', () => {
+            clearStars();
+            selectedRating = star.getAttribute('data-rating');
+            highlightStars(selectedRating);
+        });
+    });
+
+    function clearStars() {
+        stars.forEach(star => {
+            star.classList.remove('selected');
+        });
+    }
+
+    function highlightStars(rating) {
+        for (let i = 0; i < rating; i++) {
+            stars[i].classList.add('selected');
+        }
+    }
+
+    window.cancelComment = function() {
+        document.getElementById('comment').value = '';
+        clearStars();
+    }
+
+    window.sendComment = function() {
+        const comment = document.getElementById('comment').value;
+        if (comment && selectedRating) {
+            alert(`Rating: ${selectedRating}\nComment: ${comment}`);
+            // Here you can add code to send the comment and rating to a server
+            cancelComment();
+        } else {
+            alert('Please provide a rating and a comment.');
+        }
+    }
+});
+    </script>
+</body>
+</html>
